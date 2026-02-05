@@ -1,6 +1,12 @@
 Feature: Tests API
 
 
+  Scenario: test reponse Get OK
+
+    Given url 'https://reqres.in/api/users?page=1'
+    When method get
+    Then status 200
+    And print 'la réponse est : ', reponse
   Scenario: test GET
     Given url 'https://jsonplaceholder.typicode.com/posts/1'
     And method GET
