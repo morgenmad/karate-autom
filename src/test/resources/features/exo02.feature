@@ -5,19 +5,10 @@ Feature: Test avec réutilisation de réponse
     Given url 'https://jsonplaceholder.typicode.com/users/1'
     When method get
     Then status 200
+    And def userId = response.id
 
-    # je récupère le premier element du .json
-    And def firstuser = response[0]
-    # je prends l'id de l'élément 1
-    And def userId = firstuser.id
-
-    Given url https://jsonplaceholder.typicode.com/posts?userId={id}
-    And param userId = 'userId'
-    And method get
-    Then match response == userId
-    And status 200
-
-
-
-
-
+    Given url 'https://jsonplaceholder.typicode.com/posts'
+    And param userId = userId
+    When method get
+    Then status 200
+    And match each response[*].userId == userId
